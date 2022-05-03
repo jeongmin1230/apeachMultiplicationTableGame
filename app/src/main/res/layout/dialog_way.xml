@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="@drawable/round_dialog">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/warmbye"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:text="시작 버튼을 누르면 1분의 시간동안\n 많은 구구단 문제를 맞히는 게임!\n 목숨은 총 4개!\n 실수 할 때마다 목숨이 하나씩 사라진다." />
+
+
+</LinearLayout>

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="20dp"
+    android:padding="10dp"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="5dp"
+        android:padding="5dp" >
+
+        <!--타이머자리-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/warmbye"
+            android:text="타이머 자리"
+            android:textAlignment="center"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+        <!--        끝내기 버튼-->
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/warmbye"
+            android:textSize="20dp"
+            android:background="@drawable/round_button"
+            android:text="끝내기"
+            android:onClick="onClickDone" />
+
+    </LinearLayout>
+
+
+    <!--문제-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_linearlayout"
+        android:orientation="horizontal"
+        android:layout_marginBottom="5dp"
+        android:padding="5dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
+            android:layout_weight="2"
+            android:fontFamily="@font/warmbye"
+            android:text="문제 "
+            android:textAlignment="center"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginRight="0.3dp"
+            android:background="@drawable/round_textview"
+            android:id="@+id/tvQuestion"
+            android:fontFamily="@font/warmbye"
+            android:textAlignment="center"
+            android:textSize="30dp" />
+
+    </LinearLayout>
+    <!--정답입력-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_linearlayout"
+        android:orientation="horizontal"
+        android:layout_marginBottom="5dp"
+        android:padding="5dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
+            android:layout_weight="2"
+            android:fontFamily="@font/warmbye"
+            android:text="정답 입력"
+            android:textAlignment="center"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginRight="0.3dp"
+            android:background="@drawable/round_textview"
+            android:id="@+id/etAnswer"
+            android:fontFamily="@font/warmbye"
+            android:textAlignment="center"
+            android:textSize="30dp" />
+
+    </LinearLayout>
+
+    <!--판별-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_linearlayout"
+        android:orientation="horizontal"
+        android:layout_marginBottom="5dp"
+        android:padding="5dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
+            android:layout_weight="2"
+            android:fontFamily="@font/warmbye"
+            android:text="판별"
+            android:textAlignment="center"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginRight="0.3dp"
+            android:background="@drawable/round_textview"
+            android:id="@+id/tvRight"
+            android:fontFamily="@font/warmbye"
+            android:textAlignment="center"
+            android:textSize="30dp" />
+
+    </LinearLayout>
+
+    <!--정답갯수-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_linearlayout"
+        android:orientation="horizontal"
+        android:layout_marginBottom="5dp"
+        android:padding="5dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
+            android:layout_weight="2"
+            android:fontFamily="@font/warmbye"
+            android:text="정답 수"
+            android:textAlignment="center"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginRight="0.3dp"
+            android:background="@drawable/round_textview"
+            android:id="@+id/tvCount"
+            android:fontFamily="@font/warmbye"
+            android:textAlignment="center"
+            android:textSize="30dp" />
+
+    </LinearLayout>
+    <!--    목숨 수-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="5dp"
+        android:padding="5dp" >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:id="@+id/iv1"
+            android:src="@drawable/baby_apeach" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:id="@+id/iv2"
+            android:src="@drawable/baby_apeach"
+            android:layout_weight="1" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:id="@+id/iv3"
+            android:src="@drawable/baby_apeach"
+            android:layout_weight="1" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:id="@+id/iv4"
+            android:src="@drawable/baby_apeach"
+            android:layout_weight="1" />
+    </LinearLayout>
+</LinearLayout>

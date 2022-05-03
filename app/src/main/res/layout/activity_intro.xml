@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--시작 버튼, play 방법 설명 버튼 두 개 vertical 로 보여주고 배경은 어피치 배경-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/apeach_background"
+    android:gravity="center"
+    tools:context=".IntroActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="어피치\n 구구단게임"
+        android:fontFamily="@font/warmbye"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:layout_marginBottom="20dp"
+        android:textSize="70dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PLAY"
+        android:padding="10dp"
+        android:layout_marginBottom="5dp"
+        android:fontFamily="@font/warmbye"
+        android:textStyle="bold"
+        android:background="@drawable/round_button"
+        android:onClick="onClickPlay" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HOW TO PLAY"
+        android:padding="10dp"
+        android:fontFamily="@font/warmbye"
+        android:textStyle="bold"
+        android:background="@drawable/round_button"
+        android:onClick="onClickHowToPlay" />
+
+</LinearLayout>
