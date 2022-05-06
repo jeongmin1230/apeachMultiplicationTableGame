@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
             android:layout_weight="1"
+            android:id="@+id/tvTimer"
             android:fontFamily="@font/warmbye"
             android:text="타이머 자리"
             android:textAlignment="center"
@@ -33,6 +34,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/warmbye"
             android:textSize="20dp"
+            android:id="@+id/btnFinish"
             android:background="@drawable/round_button"
             android:text="끝내기"
             android:onClick="onClickDone" />
@@ -65,6 +67,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:layout_marginRight="0.3dp"
+            android:textColor="@color/black"
             android:background="@drawable/round_textview"
             android:id="@+id/tvQuestion"
             android:fontFamily="@font/warmbye"
@@ -87,7 +90,7 @@
             android:layout_marginRight="5dp"
             android:layout_weight="2"
             android:fontFamily="@font/warmbye"
-            android:text="정답 입력"
+            android:text="정답"
             android:textAlignment="center"
             android:textSize="30dp"
             android:textStyle="bold" />
@@ -97,11 +100,16 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:layout_marginRight="0.3dp"
+            android:inputType="number"
+            android:imeOptions="actionDone"
             android:background="@drawable/round_textview"
             android:id="@+id/etAnswer"
+            android:textColor="@color/black"
             android:fontFamily="@font/warmbye"
             android:textAlignment="center"
             android:textSize="30dp" />
+
+
 
     </LinearLayout>
 
@@ -132,6 +140,7 @@
             android:layout_marginRight="0.3dp"
             android:background="@drawable/round_textview"
             android:id="@+id/tvRight"
+            android:textColor="@color/black"
             android:fontFamily="@font/warmbye"
             android:textAlignment="center"
             android:textSize="30dp" />
@@ -165,6 +174,7 @@
             android:layout_marginRight="0.3dp"
             android:background="@drawable/round_textview"
             android:id="@+id/tvCount"
+            android:textColor="@color/black"
             android:fontFamily="@font/warmbye"
             android:textAlignment="center"
             android:textSize="30dp" />
