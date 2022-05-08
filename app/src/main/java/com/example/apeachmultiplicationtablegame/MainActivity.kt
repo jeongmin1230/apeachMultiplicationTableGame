@@ -13,6 +13,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import org.w3c.dom.Text
 import kotlin.concurrent.thread
 
@@ -26,16 +27,12 @@ class MainActivity : AppCompatActivity() {
     lateinit var etAnswer : EditText
     lateinit var tvRight : TextView
     lateinit var tvCount : TextView
+    lateinit var btnSubmit : Button
     lateinit var btnFinish : Button
 
-    lateinit var iv1 : ImageView
-    lateinit var iv2 : ImageView
-    lateinit var iv3 : ImageView
-    lateinit var iv4 : ImageView
+    lateinit var tvLifeCount : TextView
 
-    var a = 0
-    var b = 0
-    var count = 0
+    lateinit var iv : ImageView
 
     // 타이머를 위해 선언
     lateinit var tvTimer:TextView
@@ -43,6 +40,16 @@ class MainActivity : AppCompatActivity() {
     var timer = 0
     var timerStarted = false
     var started = false
+
+    // 문제 출력을 위한 변수
+    var ran1 = 0
+    var ran2 = 0
+
+    // 맞힌 문제 수 count 를 위해 선언
+    var count = 0
+
+    // 목숨 수를 위해 선언
+    var lifeCount = 4
 
     private val handler = object : Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message) {
@@ -74,9 +81,12 @@ class MainActivity : AppCompatActivity() {
         timerStart()
 
         init()
-//        quiz()
+        quiz()
 
         etAnswer.setOnEditorActionListener(editDoneActionListener(etAnswer))
+        btnSubmit.setOnClickListener {
+            right()
+        }
     }
     // onCreate 되었을 때 구성요소를 찾아오는 함수
     private fun init() {
@@ -84,19 +94,20 @@ class MainActivity : AppCompatActivity() {
         etAnswer = findViewById(R.id.etAnswer)
         tvRight = findViewById(R.id.tvRight)
         tvCount = findViewById(R.id.tvCount)
+        btnSubmit = findViewById(R.id.btnSubmit)
         btnFinish = findViewById(R.id.btnFinish)
 
-        iv1 = findViewById(R.id.iv1)
-        iv2 = findViewById(R.id.iv2)
-        iv3 = findViewById(R.id.iv3)
-        iv4 = findViewById(R.id.iv4)
+        tvLifeCount = findViewById(R.id.tvLifeCount)
 
+        iv = findViewById(R.id.iv)
+
+        tvCount.text = "0 개"
     }
     // 완료 버튼 눌렀을 경우 리스너
     private fun editDoneActionListener(view:View) : TextView.OnEditorActionListener {
         return TextView.OnEditorActionListener{ textView, actionId, keyEvent ->
             if(actionId == EditorInfo.IME_ACTION_DONE) {
-                etAnswer.text.clear()
+                Toast.makeText(this, "상단의 제출 버튼을 사용해주세요!", Toast.LENGTH_SHORT).show()
                 view.callOnClick()
             }
             false
@@ -105,37 +116,47 @@ class MainActivity : AppCompatActivity() {
     // 구구단 생성 함수
     private fun randomMultiplication() : String {
 
-        val ran1 = (2..9).random() // 2<= ran1 <= 9 몇단
-        val ran2 = (2..9).random() // 2<= ran2 <= 9 x 몇
+        ran1 = (2..9).random() // 2<= ran1 <= 9 몇단
+        ran2 = (2..9).random() // 2<= ran2 <= 9 x 몇
 
-        Log.d(TAG, "ran1 : $ran1, ran2 : $ran2")
+        Log.d(TAG, "randomMultiplication 안 - ran1 : $ran1, ran2 : $ran2")
 
         return "$ran1 X $ran2"
     }
     // 문제 출력 함수
     private fun quiz() {
-        tvQuestion = findViewById(R.id.tvQuestion)
         tvQuestion.text = randomMultiplication()
-        val problemArr = tvQuestion.text.split("X") // X 를 기준으로 분리해서 배열 0번, 1번에 넣음
-
-        a = problemArr[0].toInt()
-        b = problemArr[1].toInt()
-
     }
     // 입력값 판별 함수
-//    private fun right() {
-//        if(etAnswer.text.toString().toInt() == a*b ) {
-//            tvRight.text="O"
-//            count += 1
-//            tvCount.text = "$count 개"
-//            etAnswer.text.clear()
-//            quiz()
-//        } else {
-//            tvRight.text="X"
-//            tvCount.text = "$count 개"
-//            etA
-//        }
-//    }
+    private fun right() {
+        Log.d(TAG, "right 안 : ran1 : $ran1, ran2 : $ran2")
+
+        var changeEtAnswer = etAnswer.text.toString()
+        Log.d(TAG, "right 안 : changeEtAnswer 입력 값: $changeEtAnswer")
+        if(changeEtAnswer.toInt() == ran1*ran2 ) {
+            tvRight.text="O"
+            count += 1
+            tvCount.text = "$count 개"
+            etAnswer.text.clear()
+            quiz()
+        } else { // 판별 틀렸을 경우 목숨 하나씩 깎이게 하기
+            /*추가함*/
+            lifeCount -= 1
+
+            tvRight.text="X"
+            tvCount.text = "$count 개"
+            etAnswer.text.clear()
+            quiz()
+
+            /*추가함*/
+            tvLifeCount.text = "$lifeCount"
+            // 목숨이 0개가 될 경우 게임 오버
+            if(lifeCount == 0) {
+                Toast.makeText(this, "목숨을 다 사용했습니다.\n 게임오버입니다.\n 처음으로 돌아갑니다.", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+        }
+    }
     // 타이머 시작 함수
     private fun timerStart(){
         tvTimer = findViewById(R.id.tvTimer)
@@ -143,12 +164,16 @@ class MainActivity : AppCompatActivity() {
         timerStarted = true
         thread(start=true){
             while(timer >= 0){
-                Log.d(TAG, "workTime : $timer")
                 handler.sendEmptyMessage(0)
                 Thread.sleep(1000)
                 if(!timerStarted) {
                     tvTimer.setTextColor(Color.RED)
                     tvTimer.text = "타임오버"
+                    // 타이머가 끝나면 finish 화면으로 자동 전환
+                    val intent = Intent(this, FinishActivity::class.java)
+                    intent.putExtra("count", count) // 맞힌 개수가 finish 인텐트로 넘어가게 putExtra 사용
+                    Log.d(TAG, "timerStart 안 - finish 인텐트로 넘길 count : $count")
+                    startActivity(intent)
                     Log.d(TAG, "타이머 끝남")
                     break
                 }

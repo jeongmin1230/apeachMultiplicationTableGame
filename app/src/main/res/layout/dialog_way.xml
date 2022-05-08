@@ -13,7 +13,7 @@
         android:fontFamily="@font/warmbye"
         android:textAlignment="center"
         android:textSize="20dp"
-        android:text="시작 버튼을 누르면 1분의 시간동안\n 많은 구구단 문제를 맞히는 게임!\n 목숨은 총 4개!\n 실수 할 때마다 목숨이 하나씩 사라진다." />
+        android:text="시작 버튼을 누르면 20초의 시간동안\n 10개 이상의 구구단 문제를 맞히면 클리어!\n 목숨은 총 4개!\n 실수 할 때마다 목숨이 하나씩 사라진다.\n 4개의 목숨이 다 사라지면 게임 오버" />
 
 
 </LinearLayout>

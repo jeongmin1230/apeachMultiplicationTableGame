@@ -28,6 +28,14 @@
             android:textAlignment="center"
             android:textSize="30dp"
             android:textStyle="bold" />
+<!--        정답 입력 후 제출 버튼-->
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/warmbye"
+            android:id="@+id/btnSubmit"
+            android:background="@drawable/round_button"
+            android:text="제출" />
         <!--        끝내기 버튼-->
         <Button
             android:layout_width="wrap_content"
@@ -188,29 +196,43 @@
         android:layout_marginBottom="5dp"
         android:padding="5dp" >
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="목숨 수 : "
+            android:gravity="center"
+            android:fontFamily="@font/warmbye"
+            android:textSize="30dp"
+            android:layout_gravity="center" />
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_weight="1"
-            android:id="@+id/iv1"
-            android:src="@drawable/baby_apeach" />
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:id="@+id/iv2"
+            android:id="@+id/iv"
+            android:gravity="center"
             android:src="@drawable/baby_apeach"
-            android:layout_weight="1" />
-        <ImageView
+            android:layout_weight="3" />
+
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:id="@+id/iv3"
-            android:src="@drawable/baby_apeach"
-            android:layout_weight="1" />
-        <ImageView
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text=" x "
+            android:gravity="center"
+            android:fontFamily="@font/warmbye"
+            android:textSize="30dp"
+            android:layout_gravity="center" />
+
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:id="@+id/iv4"
-            android:src="@drawable/baby_apeach"
-            android:layout_weight="1" />
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="4"
+            android:gravity="center"
+            android:id="@+id/tvLifeCount"
+            android:fontFamily="@font/warmbye"
+            android:textSize="30dp"
+            android:layout_gravity="center" />
     </LinearLayout>
 </LinearLayout>
