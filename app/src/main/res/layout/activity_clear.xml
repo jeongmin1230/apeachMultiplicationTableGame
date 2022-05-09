@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFEBEE"
+    android:gravity="center"
+    tools:context=".ClearActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10개 이상을 맞혀서 \n 게임을 클리어했습니다!\n 축하합니다~"
+        android:fontFamily="@font/warmbye"
+        android:textAlignment="center"
+        android:textSize="40dp"
+        android:id="@+id/tvComment" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="REPLAY"
+        android:padding="10dp"
+        android:layout_marginBottom="5dp"
+        android:fontFamily="@font/warmbye"
+        android:textStyle="bold"
+        android:background="@drawable/round_button"
+        android:onClick="onClickReplay" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FINISH"
+        android:padding="10dp"
+        android:fontFamily="@font/warmbye"
+        android:textStyle="bold"
+        android:background="@drawable/round_button"
+        android:onClick="onClickFinish" />
+</LinearLayout>

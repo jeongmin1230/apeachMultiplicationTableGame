@@ -28,14 +28,6 @@
             android:textAlignment="center"
             android:textSize="30dp"
             android:textStyle="bold" />
-<!--        정답 입력 후 제출 버튼-->
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/warmbye"
-            android:id="@+id/btnSubmit"
-            android:background="@drawable/round_button"
-            android:text="제출" />
         <!--        끝내기 버튼-->
         <Button
             android:layout_width="wrap_content"
