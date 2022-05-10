@@ -1,46 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--시작 버튼, play 방법 설명 버튼 두 개 vertical 로 보여주고 배경은 어피치 배경-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/apeach_background"
+    android:background="#FFEBEE"
     android:gravity="center"
-    tools:context=".IntroActivity">
+    tools:context=".GameOverActivity">
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="어피치\n 구구단게임"
+        android:text="기회를 다 사용했습니다. \n 더 이상의 기회가 \n 없습니다ㅜㅜ"
         android:fontFamily="@font/warmbye"
-        android:textColor="@color/black"
-        android:textStyle="bold"
         android:textAlignment="center"
-        android:layout_marginBottom="20dp"
-        android:textSize="70dp" />
+        android:textSize="40dp"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/tvComment" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="PLAY"
+        android:text="REPLAY"
         android:padding="10dp"
         android:layout_marginBottom="5dp"
         android:fontFamily="@font/warmbye"
         android:textStyle="bold"
         android:background="@drawable/round_button_final"
-        android:onClick="onClickPlay" />
+        android:onClick="onClickReplay" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="HOW TO PLAY"
+        android:text="FINISH"
         android:padding="10dp"
-        android:layout_marginTop="10dp"
         android:fontFamily="@font/warmbye"
         android:textStyle="bold"
         android:background="@drawable/round_button_final"
-        android:onClick="onClickHowToPlay" />
-
+        android:onClick="onClickFinish" />
 </LinearLayout>

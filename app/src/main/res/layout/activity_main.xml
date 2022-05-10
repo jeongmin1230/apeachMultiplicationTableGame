@@ -35,7 +35,7 @@
             android:fontFamily="@font/warmbye"
             android:textSize="20dp"
             android:id="@+id/btnFinish"
-            android:background="@drawable/round_button"
+            android:background="@drawable/round_button_final"
             android:text="끝내기"
             android:onClick="onClickDone" />
 

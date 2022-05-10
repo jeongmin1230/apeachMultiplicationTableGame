@@ -16,6 +16,7 @@
         android:fontFamily="@font/warmbye"
         android:textAlignment="center"
         android:textSize="40dp"
+        android:layout_marginBottom="10dp"
         android:id="@+id/tvComment" />
 
     <Button
@@ -26,7 +27,7 @@
         android:layout_marginBottom="5dp"
         android:fontFamily="@font/warmbye"
         android:textStyle="bold"
-        android:background="@drawable/round_button"
+        android:background="@drawable/round_button_final"
         android:onClick="onClickReplay" />
 
     <Button
@@ -36,6 +37,7 @@
         android:padding="10dp"
         android:fontFamily="@font/warmbye"
         android:textStyle="bold"
-        android:background="@drawable/round_button"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/round_button_final"
         android:onClick="onClickFinish" />
 </LinearLayout>

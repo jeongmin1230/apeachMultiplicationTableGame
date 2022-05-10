@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ApeachMultiplicationTableGame">
         <activity
+            android:name=".GameOverActivity"
+            android:exported="false" />
+        <activity
             android:name=".ClearActivity"
             android:exported="false" />
         <activity

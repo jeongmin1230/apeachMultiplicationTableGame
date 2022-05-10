@@ -12,10 +12,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="게임이 끝났습니다. \n 맞은 총 개수는 n 개 입니다.\n"
+        android:text="게임이 끝났습니다. \n 맞은 총 개수는 n 개 입니다."
         android:fontFamily="@font/warmbye"
         android:textAlignment="center"
         android:textSize="40dp"
+        android:layout_marginBottom="10dp"
         android:id="@+id/tvComment" />
 
     <Button
@@ -26,7 +27,7 @@
         android:layout_marginBottom="5dp"
         android:fontFamily="@font/warmbye"
         android:textStyle="bold"
-        android:background="@drawable/round_button"
+        android:background="@drawable/round_button_final"
         android:onClick="onClickReplay" />
 
     <Button
@@ -34,8 +35,9 @@
         android:layout_height="wrap_content"
         android:text="FINISH"
         android:padding="10dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/warmbye"
         android:textStyle="bold"
-        android:background="@drawable/round_button"
+        android:background="@drawable/round_button_final"
         android:onClick="onClickFinish" />
 </LinearLayout>

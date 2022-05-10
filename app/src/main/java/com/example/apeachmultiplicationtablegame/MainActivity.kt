@@ -14,12 +14,14 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.isVisible
 import org.w3c.dom.Text
 import kotlin.concurrent.thread
+import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity() {
 
@@ -88,6 +90,18 @@ class MainActivity : AppCompatActivity() {
 
         etAnswer.setOnEditorActionListener(editDoneActionListener(etAnswer))
     }
+    // 뒤로가기
+    var lastTimeBackPressed : Long = 0
+    override fun onBackPressed() {
+        if(System.currentTimeMillis() - lastTimeBackPressed >= 1500){
+            lastTimeBackPressed = System.currentTimeMillis()
+            Toast.makeText(this,"'뒤로' 버튼을 한번 더 누르시면 종료됩니다.",Toast.LENGTH_LONG).show() }
+        else {
+            ActivityCompat.finishAffinity(this)
+            System.runFinalization()
+            exitProcess(0)
+        }
+    }
     // onCreate 되었을 때 구성요소를 찾아오는 함수
     private fun init() {
         tvQuestion = findViewById(R.id.tvQuestion)
@@ -120,10 +134,8 @@ class MainActivity : AppCompatActivity() {
 //                    Log.d(TAG, "timerStart 안 - finish 인텐트로 넘길 count : $count")
                     if(count >= 10) {
                         val intent = Intent(this, ClearActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
                         startActivity(intent)
-                    } else {
-
+                    } else if(lifeCount >= 1){ // 목숨이 한 개 이상일 경우에만 FinishActivity 로 넘어가도록 구현
                         startActivity(intent)
                     }
 //                    Log.d(TAG, "타이머 끝남")
@@ -189,8 +201,9 @@ class MainActivity : AppCompatActivity() {
                 tvLifeCount.text = "$lifeCount"
                 // 목숨이 0개가 될 경우 게임 오버
                 if(lifeCount == 0) {
-                    Toast.makeText(this, "목숨을 다 사용했습니다.\n 게임오버입니다.\n 처음으로 돌아갑니다.", Toast.LENGTH_SHORT).show()
                     finish()
+                    var intent = Intent(this, GameOverActivity::class.java)
+                    startActivity(intent)
                 }
             }
         }

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<!--    버튼을 눌렀을 때-->
+    <item android:state_pressed="true"
+        android:drawable="@drawable/round_button_pressed" />
+<!--    버튼이 눌렀다 놓았을 때-->
+    <item android:state_window_focused="false"
+        android:state_enabled="true"
+        android:drawable="@drawable/round_button" />
+<!--    버튼 기본 상태-->
+    <item android:state_enabled="true"
+        android:drawable="@drawable/round_button" />
+</selector>

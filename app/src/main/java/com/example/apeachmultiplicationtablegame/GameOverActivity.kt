@@ -8,13 +8,13 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import kotlin.system.exitProcess
 
-class IntroActivity : AppCompatActivity() {
+class GameOverActivity : AppCompatActivity() {
 
     val TAG : String = "jeongmin"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_intro)
+        setContentView(R.layout.activity_game_over)
     }
     // 뒤로가기
     var lastTimeBackPressed : Long = 0
@@ -29,13 +29,13 @@ class IntroActivity : AppCompatActivity() {
         }
     }
 
-    fun onClickHowToPlay(view: View) {
-        val dialog = CustomDialog(this)
-        dialog.showDig() // 다이얼로그 밖 영역을 터치하면 꺼지게 설정
-    }
-    fun onClickPlay(view: View) {
-        val intent = Intent(this, MainActivity::class.java)
+    fun onClickReplay(view: View) {
+        val intent = Intent(this, IntroActivity::class.java)
+
         startActivity(intent)
     }
-
+    fun onClickFinish(view: View) {
+        ActivityCompat.finishAffinity(this) // 액티비티를 종료하고
+        exitProcess(0) // 프로세스를 종료
+    }
 }
