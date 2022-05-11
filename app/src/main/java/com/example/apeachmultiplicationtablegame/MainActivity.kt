@@ -1,9 +1,7 @@
 package com.example.apeachmultiplicationtablegame
 
-import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -12,14 +10,10 @@ import android.os.Message
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import androidx.core.view.isVisible
-import org.w3c.dom.Text
 import kotlin.concurrent.thread
 import kotlin.system.exitProcess
 
@@ -33,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var etAnswer : EditText
     lateinit var tvRight : TextView
     lateinit var tvCount : TextView
-    lateinit var btnFinish : Button
+    lateinit var btnPause : Button
 
     lateinit var tvLifeCount : TextView
 
@@ -64,7 +58,7 @@ class MainActivity : AppCompatActivity() {
                     timerStarted -> {
                         tvTimer = findViewById(R.id.tvTimer)
                         tvTimer.text = "$timer 초 남음"
-                        Log.d(TAG, "workTime : $timer")
+//                        Log.d(TAG, "workTime : $timer")
                         timer -= 1
                         if(timer == -1){
                             timerStarted = false
@@ -108,7 +102,7 @@ class MainActivity : AppCompatActivity() {
         etAnswer = findViewById(R.id.etAnswer)
         tvRight = findViewById(R.id.tvRight)
         tvCount = findViewById(R.id.tvCount)
-        btnFinish = findViewById(R.id.btnFinish)
+        btnPause = findViewById(R.id.btnPause)
 
         tvLifeCount = findViewById(R.id.tvLifeCount)
 
@@ -132,10 +126,7 @@ class MainActivity : AppCompatActivity() {
                     // 타이머가 끝나면 finish 화면으로 자동 전환,
                     intent.putExtra("count", count) // 맞힌 개수가 finish 인텐트로 넘어가게 putExtra 사용
 //                    Log.d(TAG, "timerStart 안 - finish 인텐트로 넘길 count : $count")
-                    if(count >= 10) {
-                        val intent = Intent(this, ClearActivity::class.java)
-                        startActivity(intent)
-                    } else if(lifeCount >= 1){ // 목숨이 한 개 이상일 경우에만 FinishActivity 로 넘어가도록 구현
+                    if(lifeCount >= 1 && count < 10){ // 목숨이 한 개 이상일 경우에만 FinishActivity 로 넘어가도록 구현
                         startActivity(intent)
                     }
 //                    Log.d(TAG, "타이머 끝남")
@@ -144,6 +135,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
     // 완료 버튼 눌렀을 경우 리스너
     private fun editDoneActionListener(view:View) : TextView.OnEditorActionListener {
         return TextView.OnEditorActionListener{ textView, actionId, keyEvent ->
@@ -190,6 +182,11 @@ class MainActivity : AppCompatActivity() {
                 count += 1
                 tvCount.text = "$count 개"
                 etAnswer.text.clear()
+                // 이 안에 count 10개 넘으면 액티비티 넘기는 코드?
+                if(count >= 10) {
+                    val intent = Intent(this, ClearActivity::class.java)
+                    startActivity(intent)
+                }
                 quiz()
             } else { // 판별 틀렸을 경우 목숨 하나씩 깎이게 하기
                 lifeCount -= 1
@@ -210,11 +207,25 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    // 끝내기 버튼 눌렀을 때
-    fun onClickDone(view: View) {
-
-        val intent = Intent(this, FinishActivity::class.java)
-        startActivity(intent)
-
+    // 일시정지 버튼 눌렀을 때
+    fun onClickPause(view: View) {
+        val dialog = PauseDialog(this)
+        dialog.showDig() // 다이얼로그 밖 영역을 터치하면 꺼지게 설정
     }
+    // 다이얼로그 속 재시작
+    fun onClickReplay(view: View) {
+        onRestart()
+    }
+    // 다이얼로그 속 메인으로
+    fun onClickToMain(view: View) {
+        finish()
+    }
+    // 다이얼로그 속 종료하기
+    fun onClickExit(view: View) {
+        ActivityCompat.finishAffinity(this)
+        System.runFinalization()
+        exitProcess(0)
+    }
+
+
 }

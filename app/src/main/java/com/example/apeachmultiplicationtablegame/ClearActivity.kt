@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import kotlin.system.exitProcess
@@ -15,6 +17,15 @@ class ClearActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_clear)
+
+        animation()
+    }
+
+    // 애니메이션 효과
+    private fun animation() {
+        val ivCongratulation : ImageView = findViewById(R.id.ivCongratulation)
+        val animation = AnimationUtils.loadAnimation(this, R.anim.congratulation)
+        ivCongratulation.startAnimation(animation)
     }
 
     // 뒤로가기

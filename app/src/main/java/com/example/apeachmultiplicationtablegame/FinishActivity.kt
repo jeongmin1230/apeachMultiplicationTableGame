@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -32,6 +34,7 @@ class FinishActivity : AppCompatActivity() {
             exitProcess(0)
         }
     }
+
     // 시간이 다 되어서 넘어갔을 경우
     private fun questionCount() {
         var tvComment : TextView = findViewById(R.id.tvComment)
