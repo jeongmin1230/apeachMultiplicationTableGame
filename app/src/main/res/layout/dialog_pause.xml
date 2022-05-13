@@ -10,10 +10,21 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="바깥 영역을 터치하면\n 게임을 다시 시작합니다."
+        android:text="대화상자 밖을 터치하면\n 게임을 다시 시작합니다."
         android:gravity="center"
         android:fontFamily="@font/warmbye"
         android:textSize="20dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="타이머 재시작"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/warmbye"
+        android:textStyle="bold"
+        android:background="@drawable/round_button_final"
+        android:onClick="onClickRestart" />
 
     <Button
         android:layout_width="wrap_content"

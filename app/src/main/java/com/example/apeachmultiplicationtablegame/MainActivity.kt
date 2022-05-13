@@ -4,9 +4,6 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.os.Message
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -14,7 +11,7 @@ import android.widget.*
 import androidx.core.app.ActivityCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import kotlin.concurrent.thread
+import java.util.*
 import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity() {
@@ -23,6 +20,10 @@ class MainActivity : AppCompatActivity() {
 
     /* 전역변수들 */
 
+    // 뒤로가기 누른 시간용
+    var lastTimeBackPressed : Long = 0
+
+    lateinit var tvTimer : TextView
     lateinit var tvQuestion : TextView
     lateinit var etAnswer : EditText
     lateinit var tvRight : TextView
@@ -34,11 +35,10 @@ class MainActivity : AppCompatActivity() {
     lateinit var iv : ImageView
 
     // 타이머를 위해 선언
-    lateinit var tvTimer:TextView
 
-    var timer = 0
-    var timerStarted = false
-    var started = false
+    private var time = 0
+    private var isRunning = false
+    private var timerTask: Timer? = null
 
     // 문제 출력을 위한 변수
     var ran1 = 0
@@ -50,32 +50,11 @@ class MainActivity : AppCompatActivity() {
     // 목숨 수를 위해 선언
     var lifeCount = 4
 
-    private val handler = object : Handler(Looper.getMainLooper()) {
-        override fun handleMessage(msg: Message) {
-
-            if(started){
-                when{
-                    timerStarted -> {
-                        tvTimer = findViewById(R.id.tvTimer)
-                        tvTimer.text = "$timer 초 남음"
-//                        Log.d(TAG, "workTime : $timer")
-                        timer -= 1
-                        if(timer == -1){
-                            timerStarted = false
-                        }
-                    }
-                }
-            }
-        }
-
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         Log.d(TAG, "시작부분")
-        started = true
 
         timerStart()
 
@@ -83,9 +62,10 @@ class MainActivity : AppCompatActivity() {
         quiz()
 
         etAnswer.setOnEditorActionListener(editDoneActionListener(etAnswer))
+
     }
+
     // 뒤로가기
-    var lastTimeBackPressed : Long = 0
     override fun onBackPressed() {
         if(System.currentTimeMillis() - lastTimeBackPressed >= 1500){
             lastTimeBackPressed = System.currentTimeMillis()
@@ -98,6 +78,7 @@ class MainActivity : AppCompatActivity() {
     }
     // onCreate 되었을 때 구성요소를 찾아오는 함수
     private fun init() {
+        tvTimer = findViewById(R.id.tvTimer)
         tvQuestion = findViewById(R.id.tvQuestion)
         etAnswer = findViewById(R.id.etAnswer)
         tvRight = findViewById(R.id.tvRight)
@@ -110,30 +91,32 @@ class MainActivity : AppCompatActivity() {
 
         tvCount.text = "0 개"
     }
-    // 타이머 시작 함수
-    private fun timerStart(){
-        tvTimer = findViewById(R.id.tvTimer)
-        timer = 20
-        timerStarted = true
-        thread(start=true){
-            while(timer >= 0){
-                handler.sendEmptyMessage(0)
-                Thread.sleep(1000)
-                if(!timerStarted) {
-                    val intent = Intent(this, FinishActivity::class.java)
+    // 타이머 시작
+    private fun timerStart() {
+        val intent = Intent(this, FinishActivity::class.java)
+        isRunning = true // 타이머가 시작하면 isRunning 은 true 가 됨
+        timerTask =
+            kotlin.concurrent.timer(period = 10) { //반복주기는 peroid 프로퍼티로 설정, 단위는 1000분의 1초 (period = 1000, 1초)로 1초마다 흐르게 함
+                time++
+                val sec = time / 100 // time/100, 나눗셈의 몫(초 부분)
+                if(sec == 20 && lifeCount >= 1 && count < 10) { // 초가 20이 되고, 생명이 1개 이상이고, count 가 10 미만일경우
                     tvTimer.setTextColor(Color.RED)
-                    tvTimer.text = "타임오버"
-                    // 타이머가 끝나면 finish 화면으로 자동 전환,
+                    tvTimer.text="타임오버"
+                    tvQuestion.text = "시간초과"
                     intent.putExtra("count", count) // 맞힌 개수가 finish 인텐트로 넘어가게 putExtra 사용
-//                    Log.d(TAG, "timerStart 안 - finish 인텐트로 넘길 count : $count")
-                    if(lifeCount >= 1 && count < 10){ // 목숨이 한 개 이상일 경우에만 FinishActivity 로 넘어가도록 구현
-                        startActivity(intent)
-                    }
-//                    Log.d(TAG, "타이머 끝남")
-                    break
+                    startActivity(intent)
+                }
+                // UI 조작을 위한 메소드
+                runOnUiThread{
+                    tvTimer.text = "$sec 초 경과"
                 }
             }
-        }
+    }
+
+    // 일시정지
+    private fun timerPause() {
+        timerTask?.cancel()
+        isRunning = false // 일시정지하면 isRunning 은 false 가 됨
     }
 
     // 완료 버튼 눌렀을 경우 리스너
@@ -207,15 +190,18 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    // 일시정지 버튼 눌렀을 때
+    // 게임 화면의 일시정지 버튼 눌렀을 때
     fun onClickPause(view: View) {
+        timerPause()
         val dialog = PauseDialog(this)
-        dialog.showDig() // 다이얼로그 밖 영역을 터치하면 꺼지게 설정
+        dialog.showDig()
     }
+
     // 다이얼로그 속 재시작
-    fun onClickReplay(view: View) {
-        onRestart()
+    fun onClickRestart(view: View) {
+        timerStart()
     }
+
     // 다이얼로그 속 메인으로
     fun onClickToMain(view: View) {
         finish()
